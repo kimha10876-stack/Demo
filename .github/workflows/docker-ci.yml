@@ -1,24 +1,25 @@
-name: Build and Run Containers
+name: Deploy Application
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build-and-run:
-    runs-on: ubuntu-latest
-
+  deploy:
+    runs-on: self-hosted # Dùng chính VPS của bạn làm runner
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # 1. Đảm bảo SQL Server và Redis luôn chạy (không build lại)
+      - name: Start Database and Redis
+        run: docker compose up -d sqlserver redis
 
-      - name: Build and run backend and frontend
+      # 2. Build và khởi động lại Backend & Frontend
+      # --no-deps giúp không đụng chạm đến sqlserver/redis
+      # --build chỉ áp dụng cho backend và frontend
+      - name: Deploy Backend and Frontend
         run: |
-          docker compose up --build -d backend frontend
+          docker compose up -d --build --no-deps backend frontend
+          docker image prune -f # Dọn dẹp image cũ để tiết kiệm dung lượng
