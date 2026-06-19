@@ -27,7 +27,7 @@ export default function NotificationPage() {
   // Function to connect to WebSocket
   // Make connectWebSocket depend on currentUser
   const connectWebSocket = () => {
-    if (!context?.accessToken2 || currentUser === "unknown") {
+    if (!context?.accessToken || currentUser === "unknown") {
       console.log("Waiting for user information before connecting...");
       return;
     }
@@ -35,9 +35,9 @@ export default function NotificationPage() {
     console.log("Connecting to WebSocket for user:", currentUser);
 
     const client = new Client({
-      brokerURL: `wss://160.191.175.172:8443/ws?token=${context?.accessToken2}`,
+      brokerURL: `wss://160.191.175.172:8443/ws?token=${context?.accessToken}`,
       connectHeaders: {
-        Authorization: `Bearer ${context.accessToken2}`,
+        Authorization: `Bearer ${context.accessToken}`,
       },
       debug: function (str) {
         console.log("STOMP: " + str);
@@ -74,9 +74,9 @@ export default function NotificationPage() {
   // Split the useEffect into two - one for user extraction and one for WebSocket
   useEffect(() => {
     // Extract username from token
-    if (context?.accessToken2) {
+    if (context?.accessToken) {
       try {
-        const tokenParts = context.accessToken2.split(".");
+        const tokenParts = context.accessToken.split(".");
         if (tokenParts.length === 3) {
           const payload = JSON.parse(atob(tokenParts[1]));
           setCurrentUser(payload.sub || "unknown");
@@ -86,7 +86,7 @@ export default function NotificationPage() {
         console.error("Error parsing token:", e);
       }
     }
-  }, [context?.accessToken2]);
+  }, [context?.accessToken]);
 
   // Separate useEffect for WebSocket that depends on currentUser
   useEffect(() => {
@@ -108,14 +108,14 @@ export default function NotificationPage() {
         console.log("🔌 WebSocket disconnected");
       }
     };
-  }, [currentUser, context?.accessToken2]);
+  }, [currentUser, context?.accessToken]);
 
   // Extract username from token
   useEffect(() => {
     // Get username from token
-    if (context?.accessToken2) {
+    if (context?.accessToken) {
       try {
-        const tokenParts = context.accessToken2.split(".");
+        const tokenParts = context.accessToken.split(".");
         if (tokenParts.length === 3) {
           const payload = JSON.parse(atob(tokenParts[1]));
           setCurrentUser(payload.sub || "unknown");
@@ -136,7 +136,7 @@ export default function NotificationPage() {
         console.log("🔌 WebSocket disconnected");
       }
     };
-  }, [context?.accessToken2]);
+  }, [context?.accessToken]);
 
   // Fetch initial notifications
   const fetchNotifications = async () => {
@@ -147,7 +147,7 @@ export default function NotificationPage() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${context?.accessToken2}`,
+            Authorization: `Bearer ${context?.accessToken}`,
           },
         }
       );
@@ -187,7 +187,7 @@ export default function NotificationPage() {
 
   useEffect(() => {
     fetchNotifications();
-  }, [context?.accessToken2]);
+  }, [context?.accessToken]);
 
   const filteredNotifications = notifications.filter((notification) => {
     if (filter === "unread" && notification.read) return false;
