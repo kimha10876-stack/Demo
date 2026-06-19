@@ -1,0 +1,55 @@
+/* Nút chọn ngày */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #ff9601 !important;
+  color: white !important;
+}
+
+/* Hover trên ngày */
+.react-datepicker__day:hover {
+  background-color: #ffb14d !important;
+}
+
+/* Header của datepicker */
+.react-datepicker__header {
+  background-color: #ff9601 !important;
+  border-bottom: 1px solid #ff9601 !important;
+}
+
+/* Nút điều hướng tháng */
+.react-datepicker__navigation {
+  top: 10px;
+}
+
+.react-datepicker__navigation--previous {
+  border-right-color: #ff9601 !important;
+}
+
+.react-datepicker__navigation--next {
+  border-left-color: #ff9601 !important;
+}
+
+/* Tăng chiều dài ô input */
+.custom-datepicker {
+    border: 2px solid #ff9601 !important;
+    border-radius: 5px;
+    padding: 8px;
+    width: 100%;
+    max-width: 400px; /* Tăng từ 300px lên 400px */
+  }
+  
+  /* Icon lịch */
+  .react-datepicker-wrapper {
+    display: block !important;
+  }
+  
+
+/* Time picker */
+.react-datepicker__time-container {
+  border-left: 1px solid #ff9601 !important;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #ff9601 !important;
+  color: white !important;
+}

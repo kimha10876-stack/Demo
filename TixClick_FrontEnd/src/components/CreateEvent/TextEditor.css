@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap");
+
+.ql-container {
+  font-family: "Inter", sans-serif !important;
+}
+
+.ql-editor {
+  font-family: "Inter", sans-serif !important;
+  font-size: 14px !important; /* Cố định kích thước chữ */
+  line-height: 1.8; /* Tăng khoảng cách giữa các dòng */
+}
+
+.editor-preview {
+  font-family: "Inter", sans-serif;
+  font-size: 14px !important; /* Kích thước chữ 14px cho phần xem trước */
+  line-height: 1.8;
+}
+
+/* Chặn header */
+.ql-editor h1, 
+.ql-editor h2, 
+.ql-editor h3, 
+.ql-editor h4, 
+.ql-editor h5, 
+.ql-editor h6 {
+  font-size: 14px !important;
+  font-weight: normal !important;
+}
+
+.ql-toolbar button svg {
+  fill: #2dc275 !important; /* Đổi màu icon */
+}
+
+.ql-toolbar button:hover svg,
+.ql-toolbar button.ql-active svg {
+  fill: #25a862 !important; /* Màu khi hover hoặc active */
+}
